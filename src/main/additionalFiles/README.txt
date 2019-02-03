@@ -1,6 +1,3 @@
-# chess-winners-app
-A simple desktop app for generating winners of a chess tournament
-
 Pre-requisites
 ==============
 1. Only excel sheet to be uploaded
@@ -35,16 +32,6 @@ How to use the software
 3. Follow the On-Screen instructions
 4. The output files are located in \ChessWinners\Results folder
 
-How to use the Java program
-===========================
-1. Copy the supplied jar file in a location of your choice
-2. Open command prompt from that location
-3. Run the below command -
-   java -jar chesswinners-1.0.jar
-4. You will be shown the license information. Please read, understand and the ACCEPT to use the program.
-5. After acceptance, you will see "Please enter the path of input file [.xlsx only]:"
-6. Enter the full path of the input file. e.g., 
-   C:\Users\609239429\desktop\chessresults\NITHM-TEST.xlsx
-7. You should see some logs getting printed and finally as below -
-   Output File generated : WinnerList_06-08-2018_11_45_10.xlsx
-8. Output file is generated in the same folder where the jar file is located
+Report Bugs
+===========
+Email any bugs to zaheer.beig@gmail.com with a description of the issue and the input file

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="430.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/8.0.121"
+            fx:controller="com.beigz.chesswinners.EventController">
+    <top>
+        <Label alignment="CENTER" prefHeight="58.0" prefWidth="209.0" text="TERMS AND CONDITIONS" textAlignment="CENTER"
+               underline="true" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </Label>
+    </top>
+    <center>
+        <Label alignment="TOP_LEFT" contentDisplay="TOP" lineSpacing="1.0" prefHeight="298.0" prefWidth="642.0"
+               text="                      Copyright (c) 2018 Zaheer Beig (zaheer.beig@gmail.com).  All rights reserved.&#10;&#10;Redistribution and use in source and binary forms are permitted provided that the above copyright&#10;notice and this paragraph are duplicated in all such forms and that any documentation, advertising&#10;materials, and other materials related to such distribution and use acknowledge that the software&#10;was developed by Zaheer Beig. The name of the developer may not be used to endorse or promote&#10;products derived from this software without specific prior written permission.&#10;&#10;THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,&#10;INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND&#10;FITNESS FOR A PARTICULAR PURPOSE."
+               textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+    </center>
+    <bottom>
+        <Pane prefHeight="85.0" prefWidth="667.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="acceptBtn" alignment="TOP_CENTER" defaultButton="true" layoutX="324.0" layoutY="-1.0"
+                        mnemonicParsing="false" onAction="#handleButtonAction" text="Accept">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <effect>
+                        <Glow/>
+                    </effect>
+                </Button>
+                <Button fx:id="declineBtn" cancelButton="true" layoutX="472.0" mnemonicParsing="false"
+                        onAction="#handleButtonAction" text="Decline">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Button>
+                <Separator layoutX="102.0" layoutY="47.0" prefHeight="1.0" prefWidth="508.0"/>
+            </children>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </Pane>
+    </bottom>
+    <opaqueInsets>
+        <Insets bottom="1.0" left="1.0" right="1.0"/>
+    </opaqueInsets>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0"/>
+    </padding>
+
+</BorderPane>
