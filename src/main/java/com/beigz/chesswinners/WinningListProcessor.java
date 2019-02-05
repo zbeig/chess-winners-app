@@ -46,7 +46,29 @@ public class WinningListProcessor {
                             player.setPrizeMoney(categoryPrize.getPrize());
                             break;
                         }
-                        if (categoryPrize.getCategory().contains("Below") && player.getRating() != 0) {
+
+                        if (categoryPrize.getCategory().contains("Below")) {
+                            Integer rating = Integer.parseInt(categoryPrize.getCategory().replaceAll("[^0-9]", ""));
+                            // for mode 1 - range is : min=closest val
+                            if (evaluationMode.equalsIgnoreCase(AppConstants.DEFAULT_MODE) && player.getRating() != 0) {
+                                Integer closestVal = findClosestRating(player.getRating());
+                                if (player.getRating() < rating && rating.equals(closestVal)) {
+                                    player.setWinningCategory(categoryPrize.getCategory());
+                                    player.setPrizeMoney(categoryPrize.getPrize());
+                                    break;
+                                }
+                            }
+                            // for mode 2 - range is : min=0
+                            else {
+                                if (player.getRating() < rating) {
+                                    player.setWinningCategory(categoryPrize.getCategory());
+                                    player.setPrizeMoney(categoryPrize.getPrize());
+                                    break;
+                                }
+                            }
+                        }
+
+                        /*if (categoryPrize.getCategory().contains("Below") && player.getRating() != 0) {
                             Integer rating = Integer.parseInt(categoryPrize.getCategory().replaceAll("[^0-9]", ""));
                             Integer closestVal = findClosestRating(player.getRating());
 
@@ -64,7 +86,7 @@ public class WinningListProcessor {
                                 }
                             }
 
-                        }
+                        }*/
                         if (categoryPrize.getCategory().contains("Un")) {
                             if (player.getRating().equals(0)) {
                                 player.setWinningCategory(categoryPrize.getCategory());
@@ -109,11 +131,11 @@ public class WinningListProcessor {
                                         break;
                                     }
                                     // another check for female players - commented to fix a defect
-                                    if ("F".equalsIgnoreCase(player.getGender()) && age.equalsIgnoreCase(playerAge)) {
+                                    /*if ("F".equalsIgnoreCase(player.getGender()) && age.equalsIgnoreCase(playerAge)) {
                                         player.setWinningCategory(categoryPrize.getCategory());
                                         player.setPrizeMoney(categoryPrize.getPrize());
                                         break;
-                                    }
+                                    }*/
                                 }
                                 // category is only for club+gender
                                 else {
@@ -129,7 +151,28 @@ public class WinningListProcessor {
                 }
                 // non-cash prize allocation
                 else if (categoryPrize.getPrize().equalsIgnoreCase("trophy") && player.getPrizeMoney().equalsIgnoreCase("0")) {
-                    if (categoryPrize.getCategory().contains("Below") && player.getRating() != 0) {
+
+                    if (categoryPrize.getCategory().contains("Below")) {
+                        Integer rating = Integer.parseInt(categoryPrize.getCategory().replaceAll("[^0-9]", ""));
+                        // for mode 1 - range is : min=closest val
+                        if (evaluationMode.equalsIgnoreCase(AppConstants.DEFAULT_MODE) && player.getRating() != 0) {
+                            Integer closestVal = findClosestRating(player.getRating());
+                            if (player.getRating() < rating && rating.equals(closestVal)) {
+                                player.setWinningCategory(categoryPrize.getCategory());
+                                player.setPrizeMoney(categoryPrize.getPrize());
+                                break;
+                            }
+                        }
+                        // for mode 2 - range is : min=0
+                        else {
+                            if (player.getRating() < rating) {
+                                player.setWinningCategory(categoryPrize.getCategory());
+                                player.setPrizeMoney(categoryPrize.getPrize());
+                                break;
+                            }
+                        }
+                    }
+                    /*if (categoryPrize.getCategory().contains("Below") && player.getRating() != 0) {
                         Integer rating = Integer.parseInt(categoryPrize.getCategory().replaceAll("[^0-9]", ""));
                         Integer closestVal = findClosestRating(player.getRating());
 
@@ -146,7 +189,7 @@ public class WinningListProcessor {
                                 break;
                             }
                         }
-                    }
+                    }*/
                     if (categoryPrize.getCategory().contains("Un")) {
                         if (player.getRating().equals(0)) {
                             player.setWinningCategory(categoryPrize.getCategory());
@@ -193,11 +236,11 @@ public class WinningListProcessor {
                                     break;
                                 }
                                 // another check for female players - commented to fix a defect
-                                if ("F".equalsIgnoreCase(player.getGender()) && age.equalsIgnoreCase(playerAge)) {
+                                /*if ("F".equalsIgnoreCase(player.getGender()) && age.equalsIgnoreCase(playerAge)) {
                                     player.setWinningCategory(categoryPrize.getCategory());
                                     player.setPrizeMoney(categoryPrize.getPrize());
                                     break;
-                                }
+                                }*/
                             }
                             // category is only for club+gender
                             else {
