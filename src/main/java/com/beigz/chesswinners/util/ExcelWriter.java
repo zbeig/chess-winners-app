@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class ExcelWriter {
 
-    private static final String[] columns = {"Rank", "SerialNo", "Name", "Gender", "Rating", "Club", "Type", "Points", "Prize Money", "Winning Category"};
+    private static final String[] columns = {"Serial No", "Name", "Rank", "Gender", "Rating", "Club", "Type", "Points", "Prize Money", "Winning Category"};
 
     public String write2Excel(List<Player> players, List<CategoryPrize> categoryPrizes) throws IOException, InvalidFormatException {
 
@@ -115,21 +115,23 @@ public class ExcelWriter {
                 subMainCell.setCellStyle(headerCellStyle2);
             }
 
+            int slNo = 0;
+
             for (Player player : players) {
                 if (player.getWinningCategory().equalsIgnoreCase(cat)) {
                     Row row = sheet.createRow(rowNum++);
 
-                    Cell cell0 = row.createCell(0);
-                    cell0.setCellStyle(dataCellStyle);
-                    cell0.setCellValue(player.getRank());
-
-                    Cell cell1 = row.createCell(1);
+                    Cell cell1 = row.createCell(0);
                     cell1.setCellStyle(dataCellStyle);
-                    cell1.setCellValue(player.getSerialNo());
+                    cell1.setCellValue(++slNo);
 
-                    Cell cell2 = row.createCell(2);
+                    Cell cell2 = row.createCell(1);
                     cell2.setCellStyle(dataCellStyle);
                     cell2.setCellValue(player.getName());
+
+                    Cell cell0 = row.createCell(2);
+                    cell0.setCellStyle(dataCellStyle);
+                    cell0.setCellValue(player.getRank());
 
                     Cell cell3 = row.createCell(3);
                     cell3.setCellStyle(dataCellStyle);

@@ -29,7 +29,6 @@ public class TestWinningListProcessor {
         } catch (Exception e) {
             System.err.println(e);
         }
-
     }
 
     // Run once, e.g close connection, cleanup
@@ -54,8 +53,16 @@ public class TestWinningListProcessor {
     @Test
     public void test_mode_1() {
         System.out.println("@Test - test_mode_1");
-        WinningListProcessor processor = new WinningListProcessor("Mode 1");
-
+        try {
+            WinningListProcessor processor = new WinningListProcessor("Mode 1");
+            processor.processWinnersList(categoryPrizes, players);
+            writer.write2Excel(players, categoryPrizes);
+        } catch (InvalidFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Done");
     }
 
     @Test
@@ -70,7 +77,6 @@ public class TestWinningListProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         System.out.println("Done");
     }
 }

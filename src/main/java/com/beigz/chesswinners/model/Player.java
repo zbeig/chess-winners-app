@@ -16,8 +16,9 @@ public class Player {
     private String winningCategory;
     private String points;
     private String disability;
+    private Integer age;
 
-    public Player(Integer rank, String serialNo, String name, String gender, Integer rating, String club, String type, String prizeMoney, String winningCategory, String points, String disability) {
+    public Player(Integer rank, String serialNo, String name, String gender, Integer rating, String club, String type, String prizeMoney, String winningCategory, String points, String disability, Integer age) {
         this.rank = rank;
         this.serialNo = serialNo;
         this.name = name;
@@ -29,6 +30,7 @@ public class Player {
         this.winningCategory = winningCategory;
         this.points = points;
         this.disability = disability;
+        this.age = age;
     }
 
     public Integer getRank() {
@@ -119,6 +121,14 @@ public class Player {
         this.disability = disability;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -133,6 +143,7 @@ public class Player {
                 ", winningCategory='" + winningCategory + '\'' +
                 ", points='" + points + '\'' +
                 ", disability='" + disability + '\'' +
+                ", age='" + age + '\'' +
                 '}';
     }
 }

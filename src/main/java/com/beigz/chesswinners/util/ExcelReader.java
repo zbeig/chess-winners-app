@@ -107,11 +107,15 @@ public class ExcelReader {
                 }
                 Integer rating = Integer.parseInt(dataFormatter.formatCellValue(row.getCell(5)));
                 String club = dataFormatter.formatCellValue(row.getCell(6));
-                String type = dataFormatter.formatCellValue(row.getCell(7));
-                String points = dataFormatter.formatCellValue(row.getCell(8));
+                Integer age = 0;
+                if (isNumber(dataFormatter.formatCellValue(row.getCell(7)))) {
+                    age = Integer.parseInt(dataFormatter.formatCellValue(row.getCell(7)));
+                }
+                String type = dataFormatter.formatCellValue(row.getCell(8));
                 String disability = dataFormatter.formatCellValue(row.getCell(9));
+                String points = dataFormatter.formatCellValue(row.getCell(10));
 
-                players.add(new Player(rank, serialNo, name, gender, rating, club, type, "0", "", points, disability));
+                players.add(new Player(rank, serialNo, name, gender, rating, club, type, "0", "", points, disability, age));
 
             }
         });
@@ -119,7 +123,7 @@ public class ExcelReader {
         // Closing the workbook
         workbook.close();
 
-        System.out.println("Total number of player found:" + players.size());
+        System.out.println("Total number of players found:" + players.size());
 
         return players;
     }

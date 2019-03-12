@@ -19,7 +19,7 @@ public class ChessWinnersApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         PrintStream out = new PrintStream(
-                new FileOutputStream("console.log", true), true);
+                new FileOutputStream("chess-winners-console.log", true), true);
         System.setOut(out);
 
         primaryStage.setTitle(AppConstants.WINDOW_TITLE);
