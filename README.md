@@ -8,6 +8,7 @@ Pre-requisites
 3. 'sort' sheet should have 'Prize' and 'Prize Money' columns
 4. 'Ranklist' sheet should have columns in the same order as below [column name spelling doesn't
  	matter] :
+	
 	Rank-SNo.-Title-Name-Gender-IRtg-Club-Age-Type-Gr(disabilities)-Pts
 5. categories related to clubs, types and disabilities(Gr) in the 'sort' sheet should match exactly with the 'club', 'type' and 'Gr' columns
    in the 'Ranklist' sheet
