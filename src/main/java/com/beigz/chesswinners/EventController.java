@@ -149,7 +149,7 @@ public class EventController {
                 RadioButton btnMode2 = new RadioButton("Mode 2");
                 btnMode2.setToggleGroup(group);
                 btnMode2.setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
-                btnMode2.setTooltip(new Tooltip("Rating and Age category has\nnormal upper bound but\nlower bound is considered as 0"));
+                btnMode2.setTooltip(new Tooltip("Rating and Age category has\nnormal upper bound but\nlower bound is considered as 0 (experimental, so expect bugs!)"));
 
                 HBox hbox = new HBox();
                 hbox.setPadding(new Insets(10));
