@@ -101,7 +101,17 @@ public class Mode2Processor {
                             if (player.getClub().equalsIgnoreCase(club)) {
                                 // check if the category is for club+gender+age
                                 if (genderAgeInCat.matches(".*\\d+.*")) {
-                                    if (genderAgeInCat.equalsIgnoreCase(player.getType())) {
+                                    Integer ageCat = extractAgeFromClubType(categoryPrize.getCategory());
+                                    Integer playerAge = player.getAge();
+                                    String genderCat = extractGender(categoryPrize.getCategory());
+                                    String playerGender = player.getGender();
+
+                                    if (playerAge <= ageCat && genderCat.equalsIgnoreCase("F") && playerGender.equalsIgnoreCase("F")) {
+                                        player.setWinningCategory(categoryPrize.getCategory());
+                                        player.setPrizeMoney(categoryPrize.getPrize());
+                                        break;
+                                    }
+                                    if (playerAge <= ageCat && genderCat.equalsIgnoreCase("All")) {
                                         player.setWinningCategory(categoryPrize.getCategory());
                                         player.setPrizeMoney(categoryPrize.getPrize());
                                         break;
@@ -187,7 +197,17 @@ public class Mode2Processor {
                         if (player.getClub().equalsIgnoreCase(club)) {
                             // check if the category is for club+gender+age
                             if (genderAgeInCat.matches(".*\\d+.*")) {
-                                if (genderAgeInCat.equalsIgnoreCase(player.getType())) {
+                                Integer ageCat = extractAgeFromClubType(categoryPrize.getCategory());
+                                Integer playerAge = player.getAge();
+                                String genderCat = extractGender(categoryPrize.getCategory());
+                                String playerGender = player.getGender();
+
+                                if (playerAge <= ageCat && genderCat.equalsIgnoreCase("F") && playerGender.equalsIgnoreCase("F")) {
+                                    player.setWinningCategory(categoryPrize.getCategory());
+                                    player.setPrizeMoney(categoryPrize.getPrize());
+                                    break;
+                                }
+                                if (playerAge <= ageCat && genderCat.equalsIgnoreCase("All")) {
                                     player.setWinningCategory(categoryPrize.getCategory());
                                     player.setPrizeMoney(categoryPrize.getPrize());
                                     break;

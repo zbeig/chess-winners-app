@@ -2,7 +2,6 @@ package com.beigz.chesswinners.util;
 
 import com.beigz.chesswinners.model.CategoryPrize;
 import com.beigz.chesswinners.model.Player;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
 
@@ -27,6 +26,17 @@ public class AppUtil {
             } else {
                 return 0;
             }
+        } else {
+            return 0;
+        }
+    }
+
+    // input examples M02, F11, U15 ; returns just digits
+    public static Integer extractAgeFromClubType(String inputStr) {
+        String age = "0";
+        if (null != inputStr && inputStr.length() > 0 && inputStr.contains("_")) {
+            String[] arr = inputStr.split("_");
+            return extractAgeFromType(arr[1]);
         } else {
             return 0;
         }
@@ -78,7 +88,7 @@ public class AppUtil {
         return ratingList;
     }
 
-    public static Boolean isAgeType (String categoryType) {
+    public static Boolean isAgeType(String categoryType) {
         return categoryType.matches("^[u,m,f,U,M,F]\\d{1,2}$");
     }
 }

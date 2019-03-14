@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class ExcelWriter {
 
-    private static final String[] columns = {"Serial No", "Name", "Rank", "Gender", "Rating", "Club", "Type", "Points", "Prize Money", "Winning Category"};
+    private static final String[] columns = {"Serial No", "Name", "Rank", "Gender", "Rating", "Club", "Age", "Type", "Points", "Prize Money", "Winning Category"};
 
     public String write2Excel(List<Player> players, List<CategoryPrize> categoryPrizes) throws IOException, InvalidFormatException {
 
@@ -89,14 +89,18 @@ public class ExcelWriter {
 
             // Creating cells
             Cell mainCell = headerRow1.createCell(col);
-            mainCell.setCellValue(cat);
+            if (cat.equalsIgnoreCase("un")) {
+                mainCell.setCellValue("Un-Rated");
+            } else {
+                mainCell.setCellValue(cat);
+            }
             mainCell.setCellStyle(headerCellStyle1);
 
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                     rowNum - 1, //first row (0-based)
                     rowNum - 1, //last row  (0-based)
                     0, //first column (0-based)
-                    9  //last column  (0-based)
+                    10  //last column  (0-based)
             );
             sheet.addMergedRegion(cellRangeAddress);
 
@@ -147,19 +151,23 @@ public class ExcelWriter {
 
                     Cell cell6 = row.createCell(6);
                     cell6.setCellStyle(dataCellStyle);
-                    cell6.setCellValue(player.getType());
+                    cell6.setCellValue(player.getAge());
 
                     Cell cell7 = row.createCell(7);
                     cell7.setCellStyle(dataCellStyle);
-                    cell7.setCellValue(player.getPoints());
+                    cell7.setCellValue(player.getType());
 
                     Cell cell8 = row.createCell(8);
                     cell8.setCellStyle(dataCellStyle);
-                    cell8.setCellValue(player.getPrizeMoney());
+                    cell8.setCellValue(player.getPoints());
 
                     Cell cell9 = row.createCell(9);
                     cell9.setCellStyle(dataCellStyle);
-                    cell9.setCellValue(player.getWinningCategory());
+                    cell9.setCellValue(player.getPrizeMoney());
+
+                    Cell cell10 = row.createCell(10);
+                    cell10.setCellStyle(dataCellStyle);
+                    cell10.setCellValue(player.getWinningCategory());
 
                 }
             }

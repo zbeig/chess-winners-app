@@ -5,6 +5,6 @@ package com.beigz.chesswinners;
  */
 public interface AppConstants {
 
-    String WINDOW_TITLE = "Chess Winners v1.0 Copyright (c) 2018 Zaheer Beig";
+    String WINDOW_TITLE = "Chess Winners v2.0 Copyright (c) 2019 Zaheer Beig";
     String DEFAULT_MODE = "Mode 1";
 }
