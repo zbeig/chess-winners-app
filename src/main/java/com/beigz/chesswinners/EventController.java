@@ -134,6 +134,13 @@ public class EventController {
                         if (group.getSelectedToggle() != null) {
                             RadioButton button = (RadioButton) group.getSelectedToggle();
                             evaluationMode = button.getText();
+                            if (!evaluationMode.equalsIgnoreCase(AppConstants.DEFAULT_MODE)) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle(AppConstants.WINDOW_TITLE);
+                                alert.setHeaderText("In Mode 2, Rating and Age category has normal upper bound but lower bound is considered as 0.\nThis is an experimental feature, so expect issues");
+                                alert.setContentText(null);
+                                alert.showAndWait();
+                            }
                         }
                     }
                 });
@@ -145,11 +152,11 @@ public class EventController {
                 btnMode1.setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
                 btnMode1.setTooltip(new Tooltip("Rating and Age category has\nnormal upper and lower bounds"));
 
-                // Radio 2: Mode 2.
+                // Radio 2: Mode 2
                 RadioButton btnMode2 = new RadioButton("Mode 2");
                 btnMode2.setToggleGroup(group);
                 btnMode2.setFont(Font.font("Calibri", FontWeight.NORMAL, 14));
-                btnMode2.setTooltip(new Tooltip("Rating and Age category has\nnormal upper bound but\nlower bound is considered as 0\n(experimental, so expect bugs!)"));
+                btnMode2.setTooltip(new Tooltip("Rating and Age category has\nnormal upper bound but\nlower bound is considered as 0\n(This is experimental, so expect issues!)"));
 
                 HBox hbox = new HBox();
                 hbox.setPadding(new Insets(10));
