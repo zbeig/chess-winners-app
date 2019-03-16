@@ -91,4 +91,47 @@ public class AppUtil {
     public static Boolean isAgeType(String categoryType) {
         return categoryType.matches("^[u,m,f,U,M,F]\\d{1,2}$");
     }
+
+    public static String removeTrailingDigitsAfterUnderscore(String inputStr) {
+        String sanitizedCategory = null;
+        if (null != inputStr && inputStr.length() > 0) {
+            String charAfterLastUnderScore = inputStr.substring(inputStr.lastIndexOf('_') + 1).trim();
+            if (isTwoDigitNumber(charAfterLastUnderScore)) {
+                int endIndex = inputStr.lastIndexOf("_");
+                if (endIndex != -1) {
+                    sanitizedCategory = inputStr.substring(0, endIndex);
+                }
+
+            } else {
+                sanitizedCategory = inputStr;
+
+            }
+        }
+
+        return sanitizedCategory;
+    }
+
+    public static Boolean isTwoDigitNumber(String str) {
+
+        Boolean isTwoDigitNumber = true;
+
+        if (isNumber(str)) {
+            int tempNo = Integer.valueOf(str);
+            if (!(tempNo > 0 && tempNo < 100)) {
+                isTwoDigitNumber = false;
+            }
+        } else {
+            isTwoDigitNumber = false;
+        }
+
+        return isTwoDigitNumber;
+    }
+
+    public static int countNewLines(String inputStr) {
+        int start = -1;
+        int count = 0;
+        while ((start = inputStr.indexOf("\n", start + 1)) != -1)
+            count++;
+        return count;
+    }
 }

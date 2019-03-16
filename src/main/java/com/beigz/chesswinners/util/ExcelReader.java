@@ -3,15 +3,15 @@ package com.beigz.chesswinners.util;
 import com.beigz.chesswinners.model.CategoryPrize;
 import com.beigz.chesswinners.model.Player;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.beigz.chesswinners.util.AppUtil.isNumber;
+import static com.beigz.chesswinners.util.AppUtil.removeTrailingDigitsAfterUnderscore;
 
 public class ExcelReader {
 
@@ -56,25 +56,6 @@ public class ExcelReader {
         System.out.println("Number of unique categories found :" + categoryPrizes.size());
 
         return categoryPrizes;
-    }
-
-    private String removeTrailingDigitsAfterUnderscore(String inputStr) {
-        String sanitizedCategory = null;
-        if (null != inputStr && inputStr.length() > 0) {
-            String charAfterLastUnderScore = inputStr.substring(inputStr.lastIndexOf('_') + 1).trim();
-            if (isTwoDigitNumber(charAfterLastUnderScore)) {
-                int endIndex = inputStr.lastIndexOf("_");
-                if (endIndex != -1) {
-                    sanitizedCategory = inputStr.substring(0, endIndex);
-                }
-
-            } else {
-                sanitizedCategory = inputStr;
-
-            }
-        }
-
-        return sanitizedCategory;
     }
 
     public List<Player> readFinalRankList() throws IOException, InvalidFormatException {
@@ -128,31 +109,42 @@ public class ExcelReader {
         return players;
     }
 
-    private Boolean isNumber(String str) {
+    public String readTournamentTitle() throws IOException, InvalidFormatException {
 
-        Boolean isNumber = true;
-        try {
-            Integer.parseInt(str);
-        } catch (NumberFormatException nfe) {
-            isNumber = false;
+        System.out.println("\nReading Title of the Tournament...");
+        // Creating a Workbook from an Excel file (.xls or .xlsx)
+        Workbook workbook = WorkbookFactory.create(new File(inputFile));
+
+        // Getting the Sheet to read
+        Sheet firstSheet = workbook.getSheetAt(0);
+
+        // if the first sheet name is sort or ranklist, then throw error
+        if (firstSheet == null || firstSheet.getSheetName().equalsIgnoreCase("sort") || firstSheet.getSheetName().equalsIgnoreCase("ranklist")) {
+            System.out.println("There is no sheet which has tournament name");
+            return null;
         }
 
-        return isNumber;
-    }
-
-    private Boolean isTwoDigitNumber(String str) {
-
-        Boolean isTwoDigitNumber = true;
-
-        if (isNumber(str)) {
-            int tempNo = Integer.valueOf(str);
-            if (!(tempNo > 0 && tempNo < 100)) {
-                isTwoDigitNumber = false;
+        // Create a DataFormatter to format and get each cell's value as String
+        DataFormatter dataFormatter = new DataFormatter();
+        StringBuilder title = new StringBuilder();
+        Boolean stopFlag = true;
+        for (Row row : firstSheet) {
+            if (stopFlag) {
+                for (Cell cell : row) {
+                    String cellValue = dataFormatter.formatCellValue(cell);
+                    if (cellValue.contains("main") || cellValue.contains("Main") || cellValue.contains("MAIN")) {
+                        stopFlag = false;
+                    } else {
+                        title.append(dataFormatter.formatCellValue(cell));
+                    }
+                }
+                title.append("\n");
             }
-        } else {
-            isTwoDigitNumber = false;
         }
+        // Closing the workbook
+        workbook.close();
+        System.out.println("Title of the tournament is: " + title);
 
-        return isTwoDigitNumber;
+        return title.toString().trim();
     }
 }

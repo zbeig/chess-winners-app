@@ -17,6 +17,7 @@ public class TestWinningListProcessor {
     static List<CategoryPrize> categoryPrizes = new ArrayList<>();
     static List<Player> players = new ArrayList<>();
     static ExcelWriter writer = new ExcelWriter();
+    static String title = new String();
 
     // Run once, e.g. Database connection, connection pool
     @BeforeClass
@@ -26,6 +27,7 @@ public class TestWinningListProcessor {
         try {
             categoryPrizes = reader.readCategoryAndPrizes();
             players = reader.readFinalRankList();
+            title = reader.readTournamentTitle();
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -56,7 +58,7 @@ public class TestWinningListProcessor {
         try {
             WinningListProcessor processor = new WinningListProcessor("Mode 1");
             processor.processWinnersList(categoryPrizes, players);
-            writer.write2Excel(players, categoryPrizes);
+            writer.write2Excel(title, players, categoryPrizes);
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -71,7 +73,7 @@ public class TestWinningListProcessor {
         try {
             WinningListProcessor processor = new WinningListProcessor("Mode 2");
             processor.processWinnersList(categoryPrizes, players);
-            writer.write2Excel(players, categoryPrizes);
+            writer.write2Excel(title, players, categoryPrizes);
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         } catch (IOException e) {

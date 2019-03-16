@@ -15,19 +15,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class ExcelWriter {
 
     private static final String[] columns = {"Serial No", "Name", "Rank", "Gender", "Rating", "Club", "Age", "Type", "Points", "Prize Money", "Winning Category"};
 
-    public String write2Excel(List<Player> players, List<CategoryPrize> categoryPrizes) throws IOException, InvalidFormatException {
-
-        Set<String> uniqueCategorySet = getUniqueCategoryList(categoryPrizes);
+    public String write2Excel(String title, List<Player> players, List<CategoryPrize> categoryPrizes) throws IOException, InvalidFormatException {
+        Set<String> uniqueCategorySet = new HashSet<>();
+        if (categoryPrizes != null) {
+            uniqueCategorySet = getUniqueCategoryList(categoryPrizes);
+        }
         // Create a Workbook
         Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
@@ -82,6 +81,35 @@ public class ExcelWriter {
 
         int rowNum = 0;
         int col = 0;
+
+        Row titleRow = sheet.createRow(rowNum++);
+        Cell titleCell = titleRow.createCell(col);
+        headerCellStyle1.setWrapText(true);
+        int newLines = AppUtil.countNewLines(title);
+        if (newLines == 0) {
+            newLines = 1;
+        } else if (newLines == 1) {
+            newLines = 2;
+        }
+        titleRow.setHeightInPoints(newLines * 2 * sheet.getDefaultRowHeightInPoints());
+        titleCell.setCellStyle(headerCellStyle1);
+        titleCell.setCellValue(title);
+
+        CellRangeAddress cellRangeAddressTitle = new CellRangeAddress(
+                rowNum - 1, //first row (0-based)
+                rowNum - 1, //last row  (0-based)
+                0, //first column (0-based)
+                10  //last column  (0-based)
+        );
+        sheet.addMergedRegion(cellRangeAddressTitle);
+
+        RegionUtil.setBorderBottom(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+        RegionUtil.setBorderLeft(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+        RegionUtil.setBorderRight(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+        RegionUtil.setBorderTop(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+
+        rowNum++;
+
         for (String cat : uniqueCategorySet) {
 
             // Create a Row

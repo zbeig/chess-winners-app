@@ -211,10 +211,11 @@ public class EventController {
                 ExcelReader reader = new ExcelReader(selectedFile.getAbsolutePath());
                 ExcelWriter writer = new ExcelWriter();
                 WinningListProcessor processor = new WinningListProcessor(evaluationMode);
+                String title = reader.readTournamentTitle();
                 List<CategoryPrize> categoryPrizes = reader.readCategoryAndPrizes();
                 List<Player> players = reader.readFinalRankList();
                 processor.processWinnersList(categoryPrizes, players);
-                String outputFilePath = writer.write2Excel(players, categoryPrizes);
+                String outputFilePath = writer.write2Excel(title, players, categoryPrizes);
 
                 int index = outputFilePath.lastIndexOf("\\");
                 String fileName = outputFilePath.substring(index + 1);
@@ -306,5 +307,4 @@ public class EventController {
             processSelectedFile();
         }
     }
-
 }

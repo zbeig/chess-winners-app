@@ -17,4 +17,12 @@ public class AppUtilTest {
         assertEquals(7, ageFromType2);
 
     }
+
+    @Test
+    public void testCountNewLines() {
+        int count = AppUtil.countNewLines("[\u200E06/\u200E03/\u200E2019 13:59]  Beig,Z,Zaheer,TAR7 R:  \n" +
+                "Hi Manoj\n" +
+                " ");
+        assertEquals(2, count);
+    }
 }
