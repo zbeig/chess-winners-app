@@ -49,3 +49,10 @@ How to use the Java program
 7. You should see some logs getting printed and finally as below -
    Output File generated : WinnerList_06-08-2018_11_45_10.xlsx
 8. Output file is generated in the same folder where the jar file is located
+
+How to develop
+==============
+1. Clone the project
+2. Import as "Existing Gradle Project" in Eclipse or IntelliJ
+3. Run Gradle task "jFxRun"
+4. To build the native app run Gradle task "jFxNative"
