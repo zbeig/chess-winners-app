@@ -2,6 +2,7 @@ package com.beigz.chesswinners;
 
 import com.beigz.chesswinners.model.CategoryPrize;
 import com.beigz.chesswinners.model.Player;
+import com.beigz.chesswinners.util.AppUtil;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Mode1Processor {
 
     public static void process(List<CategoryPrize> categoryPrizes, List<Player> players) {
 
-        System.out.println("\nProcessing the winner's list in Mode 1");
+        AppUtil.log("Processing the winner's list in Mode 1");
 
         // set the ratings for the prize category of ratings
         ratingList = setRatingsOfCategoryPrize(categoryPrizes);
@@ -168,6 +169,6 @@ public class Mode1Processor {
                 }
             }
         }
-        System.out.println("Processing complete!");
+        AppUtil.log("Processing complete!");
     }
 }

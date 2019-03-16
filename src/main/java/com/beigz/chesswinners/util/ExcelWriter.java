@@ -82,33 +82,35 @@ public class ExcelWriter {
         int rowNum = 0;
         int col = 0;
 
-        Row titleRow = sheet.createRow(rowNum++);
-        Cell titleCell = titleRow.createCell(col);
-        headerCellStyle1.setWrapText(true);
-        int newLines = AppUtil.countNewLines(title);
-        if (newLines == 0) {
-            newLines = 1;
-        } else if (newLines == 1) {
-            newLines = 2;
+        if (!AppUtil.isNullOrEmpty(title)) {
+            Row titleRow = sheet.createRow(rowNum++);
+            Cell titleCell = titleRow.createCell(col);
+            headerCellStyle1.setWrapText(true);
+            int newLines = AppUtil.countNewLines(title);
+            if (newLines == 0) {
+                newLines = 1;
+            } else if (newLines == 1) {
+                newLines = 2;
+            }
+            titleRow.setHeightInPoints(newLines * 2 * sheet.getDefaultRowHeightInPoints());
+            titleCell.setCellStyle(headerCellStyle1);
+            titleCell.setCellValue(title);
+
+            CellRangeAddress cellRangeAddressTitle = new CellRangeAddress(
+                    rowNum - 1, //first row (0-based)
+                    rowNum - 1, //last row  (0-based)
+                    0, //first column (0-based)
+                    10  //last column  (0-based)
+            );
+            sheet.addMergedRegion(cellRangeAddressTitle);
+
+            RegionUtil.setBorderBottom(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+            RegionUtil.setBorderLeft(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+            RegionUtil.setBorderRight(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+            RegionUtil.setBorderTop(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
+
+            rowNum++;
         }
-        titleRow.setHeightInPoints(newLines * 2 * sheet.getDefaultRowHeightInPoints());
-        titleCell.setCellStyle(headerCellStyle1);
-        titleCell.setCellValue(title);
-
-        CellRangeAddress cellRangeAddressTitle = new CellRangeAddress(
-                rowNum - 1, //first row (0-based)
-                rowNum - 1, //last row  (0-based)
-                0, //first column (0-based)
-                10  //last column  (0-based)
-        );
-        sheet.addMergedRegion(cellRangeAddressTitle);
-
-        RegionUtil.setBorderBottom(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
-        RegionUtil.setBorderLeft(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
-        RegionUtil.setBorderRight(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
-        RegionUtil.setBorderTop(BorderStyle.MEDIUM, cellRangeAddressTitle, sheet);
-
-        rowNum++;
 
         for (String cat : uniqueCategorySet) {
 
@@ -235,8 +237,7 @@ public class ExcelWriter {
         workbook.write(fileOut);
 
         fileOut.close();
-        System.out.println("");
-        System.out.println("Output File generated : WinnerList_" + currDate + ".xlsx");
+        AppUtil.log("Output File generated : WinnerList_" + currDate + ".xlsx\n");
         String cwd = System.getProperty("user.dir");
         String firstPath = cwd.substring(0, cwd.lastIndexOf("\\"));
         Path secondPath = Paths.get(File.separator + "Results" + File.separator + "WinnerList_" + currDate + ".xlsx");

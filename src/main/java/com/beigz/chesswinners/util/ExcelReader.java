@@ -23,7 +23,7 @@ public class ExcelReader {
 
     public List<CategoryPrize> readCategoryAndPrizes() throws IOException, InvalidFormatException {
 
-        System.out.println("\nReading Categories and their Prizes...");
+        AppUtil.log("Reading Categories and their Prizes...");
         // Creating a Workbook from an Excel file (.xls or .xlsx)
         Workbook workbook = WorkbookFactory.create(new File(inputFile));
 
@@ -31,7 +31,7 @@ public class ExcelReader {
         Sheet sheet = workbook.getSheet("sort");
 
         if (sheet == null) {
-            System.out.println("There is no sheet with name as 'sort'");
+            AppUtil.log("There is no sheet with name as 'sort'");
             throw new InvalidFormatException("There is no sheet with name as 'sort'");
         }
 
@@ -53,14 +53,14 @@ public class ExcelReader {
 
         // Closing the workbook
         workbook.close();
-        System.out.println("Number of unique categories found :" + categoryPrizes.size());
+        AppUtil.log("Number of unique categories found :" + categoryPrizes.size());
 
         return categoryPrizes;
     }
 
     public List<Player> readFinalRankList() throws IOException, InvalidFormatException {
 
-        System.out.println("\nReading the Ranklist and Player details...");
+        AppUtil.log("Reading the Ranklist and Player details...");
 
         // Creating a Workbook from an Excel file (.xls or .xlsx)
         Workbook workbook = WorkbookFactory.create(new File(inputFile));
@@ -69,7 +69,7 @@ public class ExcelReader {
         Sheet sheet = workbook.getSheet("Ranklist");
 
         if (sheet == null) {
-            System.out.println("There is no sheet with name as 'Ranklist'");
+            AppUtil.log("There is no sheet with name as 'Ranklist'");
             throw new InvalidFormatException("There is no sheet with name as 'Ranklist'");
         }
 
@@ -104,14 +104,14 @@ public class ExcelReader {
         // Closing the workbook
         workbook.close();
 
-        System.out.println("Total number of players found:" + players.size());
+        AppUtil.log("Total number of players found:" + players.size());
 
         return players;
     }
 
     public String readTournamentTitle() throws IOException, InvalidFormatException {
 
-        System.out.println("\nReading Title of the Tournament...");
+        AppUtil.log("Reading Title of the Tournament...");
         // Creating a Workbook from an Excel file (.xls or .xlsx)
         Workbook workbook = WorkbookFactory.create(new File(inputFile));
 
@@ -120,7 +120,7 @@ public class ExcelReader {
 
         // if the first sheet name is sort or ranklist, then throw error
         if (firstSheet == null || firstSheet.getSheetName().equalsIgnoreCase("sort") || firstSheet.getSheetName().equalsIgnoreCase("ranklist")) {
-            System.out.println("There is no sheet which has tournament name");
+            AppUtil.log("There is no sheet which has tournament name");
             return null;
         }
 
@@ -143,7 +143,7 @@ public class ExcelReader {
         }
         // Closing the workbook
         workbook.close();
-        System.out.println("Title of the tournament is: " + title);
+        AppUtil.log("Title of the tournament is: " + title);
 
         return title.toString().trim();
     }

@@ -3,12 +3,24 @@ package com.beigz.chesswinners.util;
 import com.beigz.chesswinners.model.CategoryPrize;
 import com.beigz.chesswinners.model.Player;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by Zaheer Beig on 23/02/2019.
  */
 public class AppUtil {
+
+    public static void log(String msg) {
+        System.out.println(getCurrentDateTime() + " - " + msg);
+    }
+
+    public static String getCurrentDateTime() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
+    }
 
     public static String extractGender(String genderAgeInCat) {
         String gender = "F";
@@ -133,5 +145,11 @@ public class AppUtil {
         while ((start = inputStr.indexOf("\n", start + 1)) != -1)
             count++;
         return count;
+    }
+
+    public static boolean isNullOrEmpty(String str) {
+        if (str != null && !str.isEmpty())
+            return false;
+        return true;
     }
 }
